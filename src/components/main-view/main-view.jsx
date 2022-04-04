@@ -1,52 +1,58 @@
 import React from 'react';
+import axios from 'axios';
+
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { LoginView } from '../login-view/login-view';
 
 class MainView extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            movies: [
-                {
-                    _id: 1,
-                    Title: 'Inception',
-                    Description: 'desc1...',
-                    ImagePath: '...',
-                    Genre: '...',
-                    Director: '...'
-                },
-                {
-                    _id: 2,
-                    Title: 'The Shawshank Redemption',
-                    Description: 'desc2...',
-                    ImagePath: '...',
-                    Genre: '...',
-                    Director: '...'
-                },
-                {
-                    _id: 3,
-                    Title: 'Gladiator',
-                    Description: 'desc3...',
-                    ImagePath: '...',
-                    Genre: '...',
-                    Director: '...'
-                }
-            ],
-            selectedMovie: null
-        };
+            movies: [],
+            selectedMovie: null,
+            user: null
+        }
     }
 
-    setSelectedMovie(newSelectedMovie) {
+    componentDidMount() {
+        axios.get('https://movie-api-moin.herokuapp.com/movies')
+            .then(response => {
+                this.setState({
+                    movies: response.data
+                });
+            })
+            .catch(erro => {
+                console.log(error);
+            });
+    }
+
+    setSelectedMovie(Movie) {
         this.setState({
-            selectedMovie: newSelectedMovie
+            selectedMovie: movie
+        });
+    }
+
+    /* When a user successfully logs in, 
+   this function updates the `user` property in state to that *particular user*/
+
+    onLoggedIn(user) {
+        this.setState({
+            user
         });
     }
 
     render() {
         const { movies, selectedMovie } = this.state;
 
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+        /* If there is no user, the LoginView is rendered. 
+        If there is a user logged in, the user details are *passed as a prop to the LoginView*/
+        if (!user) return
+        <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
+        /* Before the movies have been loaded */
+        if (movies.length === 0) return <div className="main-view" />;
 
         return (
             <div className="main-view">
@@ -54,13 +60,11 @@ class MainView extends React.Component {
                     ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
                     : movies.map(movie => (
                         <MovieCard key={movie._id} movie={movie}
-                            onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />
+                            onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }} />
                     ))
                 }
             </div>
         );
     }
 }
-
-
 export default MainView;
