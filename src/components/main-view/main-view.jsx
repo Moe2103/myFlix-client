@@ -11,7 +11,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import NavbarView from '../navbar-view/NavbarView';
+import { NavbarView } from '../navbar-view/navbar-view';
 import { ProfileUpdate } from '../profile-update/profile-update';
 import { ProfileDelete } from '../delete-profile-view/delete-profile-view';
 
