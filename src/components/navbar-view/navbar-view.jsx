@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import Logo from '../../logo/logo.png';
+
 
 export default function NavbarView({ onLoggedOut }) {
   return (

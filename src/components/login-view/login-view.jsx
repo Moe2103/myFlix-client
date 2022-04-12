@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Container, Card, Col, Row, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 
-import Logo from '../../logo/logo.png';
+
 import axios from 'axios';
 
 export function LoginView({
