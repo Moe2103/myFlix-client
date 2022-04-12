@@ -1,24 +1,55 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Button, Container, Card } from 'react-bootstrap';
+import { Form, Button, Container, Card, Col, Row, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 
-export function LoginView(props) {
+import Logo from '../../logo/logo.png';
+import axios from 'axios';
+
+export function LoginView({
+    onLoggedIn,
+    history
+}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password);
         /* Send a request to the server for authentication */
-        /* then call props.onLoggedIn(username) */
-        props.onLoggedIn(username);
+        axios.post('https://movie-api-moin.herokuapp.com/movies', {
+
+            Username: username,
+            Password: password
+        })
+            /* then call onLoggedIn(username),
+            which provides the username to our parent component (child to parent communication) */
+            .then(response => {
+                const data = response.data;
+                console.log('data: ', data);
+                onLoggedIn(data);
+            })
+            .catch(e => {
+                console.log('no such user');
+                alert('please enter valid username and password');
+            });
     };
+
+    const handleClickRegister = () => {
+        history.push("/register");
+    }
+
 
     return (
         <Container>
-            <Row>
-                <Col>
-                    <Card>
-                        <Card.Group>
+            <div className="image-container">
+                <img
+                    className="registration-view_logo"
+                    src={Logo}
+                />
+            </div>
+            <div className="form-container">
+                <Row>
+                    <Col>
+                        <Card>
                             <Card.Body>
                                 <Card.Title>Please Login</Card.Title>
                                 <Form>
@@ -39,15 +70,32 @@ export function LoginView(props) {
                                             placeholder="Enter password"
                                             required />
                                     </Form.Group>
-                                    <Button variant="primary" type="submit" onClick={handleSubmit}>
-                                        Submit
-                                    </Button>
+                                    <ButtonToolbar>
+                                        <ButtonGroup className="me-5">
+                                            <Button
+                                                className="button"
+                                                variant="info"
+                                                type="submit"
+                                                onClick={handleSubmit}>
+                                                Login
+                                            </Button>
+                                        </ButtonGroup>
+                                        <ButtonGroup>
+                                            <Button
+                                                className="button"
+                                                variant="outline-dark"
+                                                type="submit"
+                                                onClick={handleClickRegister}>
+                                                Register here
+                                            </Button>
+                                        </ButtonGroup>
+                                    </ButtonToolbar>
                                 </Form>
                             </Card.Body>
-                        </Card.Group>
-                    </Card>
-                </Col>
-            </Row>
+                        </Card>
+                    </Col>
+                </Row>
+            </div>
         </Container>
 
     );

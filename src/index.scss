@@ -1,5 +1,15 @@
-$color: steelblue;
+$color: black;
+$background-color: #141414;
 
-.my-flix {
-  color: $color;
+$link-color: #71e8eec1;
+
+$s-color: #71e8eec1;
+$s-light: #a7ffff;
+$s-dark: #34b5bc;
+
+
+
+.app-container {
+    background-color: $background-color;
+    min-height: 100vh;
 }
