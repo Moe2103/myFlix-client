@@ -9,12 +9,20 @@ import FigureImage from 'react-bootstrap/esm/FigureImage';
 
 export function ProfileView(props) {
     console.log('props: ', props);
-
+    let { removeFromFavourites } = props;
 
     const [username, setUsername] = useState(props.userData.Username);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState(props.userData.Email);
     const [birthday, setBirthday] = useState(props.userData.Birthday);
+
+    useEffect(() => {
+        setUsername(props.userData.Username);
+        // setPassword(props.password);
+        setEmail(props.userData.Email);
+        setBirthday(props.userData.Birthday);
+    }, [props.userData.Username]);
+
     const token = localStorage.getItem('token');
     const userInfo = {
         Username: username,
@@ -34,7 +42,7 @@ export function ProfileView(props) {
         // e.preventDefault();
         const token = localStorage.getItem('token');
         console.log('remove from Favourite movies');
-        axios.delete(`'https://movie-api-moin.herokuapp.com/users/${currentUser}/movies/${movieId}`,
+        axios.delete(`https://movie-api-moin.herokuapp.com/users/${currentUser}/movies/${movieId}`,
             // axios.delete(`http://localhost:5000/users/${currentUser}/movies/${movieId}`,
             {
                 headers: { Authorization: `Bearer ${token}` },
@@ -43,7 +51,8 @@ export function ProfileView(props) {
                 const data = response.data;
                 console.log(data);
                 alert("movie removed from favourites");
-                location.reload();
+                removeFromFavourites(movieId);
+
             })
             .catch(e => {
                 console.log('error removing movie from favourites');
@@ -65,7 +74,7 @@ export function ProfileView(props) {
                 console.log(data);
                 alert("user updated");
                 localStorage.setItem('user', username);
-                location.reload();
+                // location.reload();
                 props.history.push("/");
             })
             .catch(e => {
@@ -74,12 +83,6 @@ export function ProfileView(props) {
             });
     };
 
-
-
-
-    useEffect(() => {
-
-    }, [])
 
     return (
 

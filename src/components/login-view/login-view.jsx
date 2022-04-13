@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Container, Card, Col, Row, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
-
-
+import './login-view.scss';
 import axios from 'axios';
+
 
 export function LoginView({
     onLoggedIn,
@@ -15,7 +15,7 @@ export function LoginView({
     const handleSubmit = (e) => {
         e.preventDefault();
         /* Send a request to the server for authentication */
-        axios.post('https://movie-api-moin.herokuapp.com/movies', {
+        axios.post('https://movie-api-moin.herokuapp.com/login', {
 
             Username: username,
             Password: password
@@ -39,7 +39,7 @@ export function LoginView({
 
 
     return (
-        <Container>
+        <Container className="login-container">
             <div className="image-container">
                 <img
                     className="registration-view_logo"
@@ -49,8 +49,8 @@ export function LoginView({
             <div className="form-container">
                 <Row>
                     <Col>
-                        <Card>
-                            <Card.Body>
+                        <Card >
+                            <Card.Body className="card">
                                 <Card.Title>Please Login</Card.Title>
                                 <Form>
                                     <Form.Group controlId="formUsername">
@@ -83,7 +83,7 @@ export function LoginView({
                                         <ButtonGroup>
                                             <Button
                                                 className="button"
-                                                variant="outline-dark"
+                                                variant="outline-info"
                                                 type="submit"
                                                 onClick={handleClickRegister}>
                                                 Register here

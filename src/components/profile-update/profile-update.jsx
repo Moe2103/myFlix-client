@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
-import React, { useState } from 'react';
 import axios from 'axios';
 
 
@@ -26,7 +25,7 @@ export function ProfileUpdate(props) {
     const handleUpdateUser = (e) => {
         e.preventDefault();
         /* Send a request to the server for authentication */
-        axios.put('https://movie-api-moin.herokuapp.com/users' + props.userData.Username,
+        axios.put('https://movie-api-moin.herokuapp.com/users/' + props.userData.Username,
             userInfo,
             {
                 headers: { Authorization: `Bearer ${token}` },

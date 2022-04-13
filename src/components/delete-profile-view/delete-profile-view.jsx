@@ -9,7 +9,7 @@ export function ProfileDelete(props) {
     const currentUser = localStorage.getItem('user');
     const handleDeleteUser = (e) => {
         e.preventDefault();
-        axios.delete('https://morning-badlands-52426.herokuapp.com/users/' + currentUser,
+        axios.delete('https://movie-api-moin.herokuapp.com/users' + currentUser,
             {
                 headers: { Authorization: `Bearer ${token}` },
             })

@@ -82,7 +82,7 @@ export function RegistrationView(props) {
 
     return (
         <Router>
-            <Container>
+            <Container className="registration-background-container">
                 <div className="image-container">
                     <img
                         className="registration-view_logo"
