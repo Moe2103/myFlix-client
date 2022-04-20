@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom
 
 // #0
 import { setMovies, setUser } from '../../actions/actions';
-import MovieList from '../movies-list/movies-list';
+import MovieList from '../movie-list/movie-list';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
